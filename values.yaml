@@ -1001,5 +1001,5 @@ compilers:
 # ANDROID
   - id: ndk-r27c
     platform: android
-    template: common/default
+    template: android/clang
     file: https://dl.google.com/android/repository/android-ndk-r27c-linux.zip

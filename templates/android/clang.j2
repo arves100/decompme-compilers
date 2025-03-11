@@ -1,0 +1,33 @@
+FROM alpine:3.18 as base
+
+RUN mkdir -p /compilers/{{ platform }}/{{ id }}
+
+{%- set filename = file.split("/")[-1].split("?")[0] %}
+{%- set dirname = filename.split(".")[0].replace("-linux", "") %}
+
+RUN wget -O {{ filename }} "{{ file }}"
+RUN unzip {{ filename }} -d /compilers/{{ platform }}/{{ id }}
+
+# we only need the clang-x.y.z binary
+
+RUN mv /compilers/{{ platform }}/{{ id }}/{{ dirname }}/toolchains/llvm/prebuilt/linux-x86_64/ /compilers/{{ platform }}/{{ id }}/
+
+RUN rm -rf /compilers/{{ platform }}/{{ id }}/{{ dirname }}
+
+RUN rm -rf /compilers/{{ platform }}/{{ id }}/libexec
+RUN rm -rf /compilers/{{ platform }}/{{ id }}/share
+RUN rm -rf /compilers/{{ platform }}/{{ id }}/prebuilt_include
+RUN rm -rf /compilers/{{ platform }}/{{ id }}/*.txt
+RUN rm -rf /compilers/{{ platform }}/{{ id }}/*.md
+RUN rm -rf /compilers/{{ platform }}/{{ id }}/*.xml
+RUN rm -rf /compilers/{{ platform }}/{{ id }}/BUILD_INFO
+RUN rm -rf /compilers/{{ platform }}/{{ id }}/NOTICE
+RUN rm -rf /compilers/{{ platform }}/{{ id }}/MODULE_*
+RUN rm -rf /compilers/{{ platform }}/{{ id }}/sysroot/NOTICE
+
+RUN chown -R root:root /compilers/{{ platform }}/{{ id }}/
+RUN chmod +x /compilers/{{ platform }}/{{ id }}/bin/*
+
+FROM scratch as release
+
+COPY --from=base /compilers /compilers
