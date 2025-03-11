@@ -997,3 +997,9 @@ compilers:
     platform: dreamcast
     template: common/default
     file: https://github.com/decompme/compilers/releases/download/compilers/shc-v5.1r11.tar.gz
+
+# ANDROID
+  - id: ndk-r27c
+    platform: android
+    template: common/default
+    file: https://dl.google.com/android/repository/android-ndk-r27c-linux.zip
