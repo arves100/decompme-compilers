@@ -10,7 +10,7 @@ RUN unzip {{ filename }} -d /compilers/{{ platform }}/{{ id }}
 
 # we only need the clang-x.y.z binary
 
-RUN mv /compilers/{{ platform }}/{{ id }}/{{ dirname }}/toolchains/llvm/prebuilt/linux-x86_64/ /compilers/{{ platform }}/{{ id }}/
+RUN mv -f /compilers/{{ platform }}/{{ id }}/{{ dirname }}/toolchains/llvm/prebuilt/linux-x86_64/* /compilers/{{ platform }}/{{ id }}/
 
 RUN rm -rf /compilers/{{ platform }}/{{ id }}/{{ dirname }}
 

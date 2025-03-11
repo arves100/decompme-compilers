@@ -10,7 +10,7 @@ RUN unzip android-ndk-r27c-linux.zip -d /compilers/android/ndk-r27c
 
 # we only need the clang-x.y.z binary
 
-RUN mv /compilers/android/ndk-r27c/android-ndk-r27c/toolchains/llvm/prebuilt/linux-x86_64/ /compilers/android/ndk-r27c/
+RUN mv -f /compilers/android/ndk-r27c/android-ndk-r27c/toolchains/llvm/prebuilt/linux-x86_64/* /compilers/android/ndk-r27c/
 
 RUN rm -rf /compilers/android/ndk-r27c/android-ndk-r27c
 
